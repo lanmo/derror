@@ -1,0 +1,75 @@
+<div class="index-content">
+  <section class="content-header">
+    <h4 data-lang="sidebar-query-exception"></h4>
+    <ol class="breadcrumb">
+      <li class="active"><i class="fa fa-cogs" data-lang="sidebar-global-settings"></i></li>
+      <li class="active" data-lang="sidebar-query-exception"></li>
+    </ol>
+  </section>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">查询条件</div>
+    <form id="formSearch" class="form-horizontal">
+      <div class="clearfix content-line">
+        <div class="pull-left col-md-4">
+          <label class="control-label col-md-3">应用</label>
+          <select class="col-md-9" id="app-query" style="width: 55%">
+            <option>请选择</option>
+          </select>
+        </div>
+
+        <div class="pull-left col-md-4">
+          <label class="control-label col-md-3">host</label>
+          <input class="" type="text" id="host-query" style="height: 30px;"/>
+        </div>
+        <div class="pull-left col-md-4">
+          <div class="control-label col-md-3"></div>
+          <button  type="button" id="btn_query" class="btn btn-primary">查询
+          </button>
+        </div>
+      </div>
+      <div class="clearfix content-line">
+        <div class="input-append date form_datetime col-md-4">
+          <label class="control-label col-md-3">开始时间</label>
+          <input class="" id="start-time" type="text" style="height: 30px;" readonly="readonly" />
+          <span class=" add-on"
+                style="height: 30px;"><i class="icon-remove" style="margin:1px 0 0 -2px"></i></span>
+          <span class=" add-on" style="height: 30px;"><i class="icon-th" style="margin:1px 0 0 -2px"></i></span>
+        </div>
+
+        <div class="input-append date form_datetime col-md-4">
+          <label class="control-label col-md-3">结束时间</label>
+          <input class="" id="end-time" type="text" style="height: 30px;" readonly="readonly"/>
+          <span class=" add-on"
+                style="height: 30px;"><i class="icon-remove" style="margin:1px 0 0 -2px"></i></span>
+          <span class=" add-on" style="height: 30px;"><i class="icon-th" style="margin:1px 0 0 -2px"></i></span>
+        </div>
+
+      </div>
+
+    </form>
+  </div>
+  <table id="example" class="display" style="width:100%">
+    <thead>
+    <tr>
+      <th></th>
+      <th>主机</th>
+      <th>异常名称</th>
+      <th>应用名称</th>
+      <th>报警时间</th>
+    </tr>
+    </thead>
+  </table>
+</div>
+<link rel="stylesheet" href="/css/dataTables.min.css"/>
+<link href="/css/exception-log.css" rel="stylesheet" media="screen"/>
+<link href="/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen"/>
+<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+<script src="/js/query/query.dataTables.min.js"></script>
+<script src="/lib/bootstrap-table/bootstrap-table.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator_zh_CN.js"></script>
+<script src="/js/util/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script src="/js/util/common.js"></script>
+<script src="/js/query/query-exception.js"></script>
+<!--<script src="/js/global/appconfig_center.js"></script>-->

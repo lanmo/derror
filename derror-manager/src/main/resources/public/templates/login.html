@@ -1,0 +1,81 @@
+<!--
+  ~ /*
+  ~  * Copyright 2018 derror.jfaster.org.
+  ~  *   <p>
+  ~  * Licensed under the Apache License, Version 2.0 (the "License");
+  ~  * you may not use this file except in compliance with the License.
+  ~  * You may obtain a copy of the License at
+  ~  *
+  ~  *      http://www.apache.org/licenses/LICENSE-2.0
+  ~  *
+  ~  * Unless required by applicable law or agreed to in writing, software
+  ~  * distributed under the License is distributed on an "AS IS" BASIS,
+  ~  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  * See the License for the specific language governing permissions and
+  ~  * limitations under the License.
+  ~  * </p>
+  ~  */
+  -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="/css/login.css" rel='stylesheet' type='text/css'/>
+  <script src="/lib/jquery/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+<script>
+  $(function () {
+    $("#login").click(function () {
+      var userName = $("#userName").val();
+      var password = $("#password").val();
+      if (userName == null || password == null || userName == '' || password == '') {
+        alert("用户名或者密码不能为空");
+        return;
+      };
+      $.ajax({
+        url: "/user/login?",
+        type: "POST",
+        data:{"userName":userName,"password":password},
+        async: false,
+        dataType: "json",
+        success: function (d) {
+          if (d.code == 1) {
+            alert(d.msg);
+          } else {
+            window.location.href = "/index/page";
+          }
+        }
+      });
+    })
+  })
+</script>
+<!--SIGN UP-->
+<h1>derror manager</h1>
+<div class="login-form">
+  <div class="close"></div>
+  <div class="head-info">
+    <label class="lbl-1"> </label>
+    <label class="lbl-2"> </label>
+    <label class="lbl-3"> </label>
+  </div>
+  <div class="clear"></div>
+  <div class="avtar">
+    <img src="../img/login/avtar.png"/>
+  </div>
+  <form>
+    <input type="text" class="text" id="userName" placeholder="用户名"/>
+    <div class="key">
+      <input type="password" id="password" placeholder="密码"/>
+    </div>
+  </form>
+  <div class="signin">
+    <input id="login" type="submit" value="Login"/>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.5.9.RELEASE</version>
+    <relativePath/>
+  </parent>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:git@github.com:lanmo/derror.git</connection>
+    <developerConnection>scm:git:git@github.com:lanmo/derror.git</developerConnection>
+    <url>https://github.com/lanmo/derror</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <developers>
+    <developer>
+      <id>yangnan</id>
+      <name>yangnan</name>
+      <email>xjxyyn@gmail.com</email>
+      <url>https://github.com/lanmo/derror</url>
+      <timezone>8</timezone>
+    </developer>
+    <developer>
+      <id>wangxiaozhong</id>
+      <name>wangxiaozhong</name>
+      <email>amoswxz@gmail.com</email>
+      <url>http://blog.amoswxz.com/</url>
+      <timezone>8</timezone>
+    </developer>
+  </developers>
+
+  <groupId>org.jfaster.derror</groupId>
+  <artifactId>derror</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0.0</version>
+  <url>https://github.com/lanmo/derror</url>
+
+  <modules>
+    <module>derror-manager</module>
+    <module>derror-logback-plugin</module>
+    <module>derror-common</module>
+  </modules>
+
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
+    <logback.version>1.2.3</logback.version>
+    <junit.version>4.12</junit.version>
+    <slf4j.api.version>1.7.9</slf4j.api.version>
+    <perf4j.version>0.9.16</perf4j.version>
+    <fastjson.version>1.2.35</fastjson.version>
+    <junit.version>4.12</junit.version>
+    <joda.time.version>2.9.9</joda.time.version>
+    <lombok.version>1.16.16</lombok.version>
+    <skip.maven.deploy>true</skip.maven.deploy>
+    <guava.version>22.0</guava.version>
+    <mango-starter.version>0.4</mango-starter.version>
+    <mysql.version>5.1.25</mysql.version>
+    <apache.commons.lang3.version>3.3.2</apache.commons.lang3.version>
+    <apache.commons.collections.version>3.2.2</apache.commons.collections.version>
+    <commons-io.version>2.6</commons-io.version>
+    <commons-logging.version>1.2</commons-logging.version>
+    <collections4.version>4.1</collections4.version>
+    <maven-plugin-plugin.version>3.4</maven-plugin-plugin.version>
+    <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+    <maven-surefire-report-plugin.version>2.18.1</maven-surefire-report-plugin.version>
+    <project.build.locale>zh_CN</project.build.locale>
+    <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- mango -->
+      <dependency>
+        <groupId>org.jfaster</groupId>
+        <artifactId>mango-spring-boot-starter</artifactId>
+        <version>${mango.version}</version>
+      </dependency>
+
+      <!-- mysql -->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+      <!--fastJson-->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>${fastjson.version}</version>
+      </dependency>
+      <!-- logback -->
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-core</artifactId>
+        <version>${logback.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-access</artifactId>
+        <version>${logback.version}</version>
+      </dependency>
+      <!--4j-->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.api.version}</version>
+      </dependency>
+      <!-- perf4j -->
+      <dependency>
+        <groupId>org.perf4j</groupId>
+        <artifactId>perf4j</artifactId>
+        <version>${perf4j.version}</version>
+      </dependency>
+
+      <!-- apache -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${apache.commons.lang3.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-collections4</artifactId>
+        <version>${collections4.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-collections</groupId>
+        <artifactId>commons-collections</artifactId>
+        <version>${apache.commons.collections.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+      <!-- end apache -->
+
+      <!-- guava -->
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
+      </dependency>
+      <!-- lombok -->
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+      </dependency>
+      <!-- junit -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <!-- joda-->
+      <dependency>
+        <groupId>joda-time</groupId>
+        <artifactId>joda-time</artifactId>
+        <version>${joda.time.version}</version>
+      </dependency>
+
+      <!--mango-->
+      <dependency>
+        <groupId>org.jfaster</groupId>
+        <artifactId>mango-spring-boot-starter</artifactId>
+        <version>${mango-starter.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>${commons-logging.version}</version>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+  <build>
+    <plugins>
+
+      <!-- Source -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${maven-source-plugin.version}</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Javadoc -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${maven-javadoc-plugin.version}</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- GPG -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>${maven-gpg-plugin.version}</version>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <compilerVersion>${maven.compiler.source}</compilerVersion>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.source}</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven-resources-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${maven-jar-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+          <argLine>-XX:-UseSplitVerifier</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>${maven-surefire-report-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>${maven-site-plugin.version}</version>
+        <configuration>
+          <locales>${project.build.locale}</locales>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>${maven-plugin-plugin.version}</version>
+        <configuration>
+          <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+        </configuration>
+        <executions>
+          <execution>
+            <id>default-descriptor</id>
+            <phase>process-classes</phase>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>java16</id>
+      <activation>
+        <jdk>1.6</jdk>
+      </activation>
+      <properties>
+        <maven.compiler.testTarget>1.6</maven.compiler.testTarget>
+        <maven.compiler.testSource>1.6</maven.compiler.testSource>
+        <maven.compiler.testCompilerArgument />
+      </properties>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <configuration>
+                <testExcludes>
+                  <testExclude>**/usesjava7/**/*.java</testExclude>
+                  <testExclude>**/usesjava8/**/*.java</testExclude>
+                </testExcludes>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+    <profile>
+      <id>java17</id>
+      <activation>
+        <jdk>1.7</jdk>
+      </activation>
+      <properties>
+        <maven.compiler.testTarget>1.7</maven.compiler.testTarget>
+        <maven.compiler.testSource>1.7</maven.compiler.testSource>
+        <maven.compiler.testCompilerArgument />
+      </properties>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <configuration>
+                <testExcludes>
+                  <testExclude>**/usesjava8/**/*.java</testExclude>
+                </testExcludes>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+              <source>1.6</source>
+              <target>1.6</target>
+              <encoding>utf-8</encoding>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>2.2.1</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>javadoc.java8</id>
+      <activation>
+        <jdk>[1.8,)</jdk>
+      </activation>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <version>${javadoc.version}</version>
+              <configuration>
+                <additionalparam>-Xdoclint:-missing</additionalparam>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
+
+</project>

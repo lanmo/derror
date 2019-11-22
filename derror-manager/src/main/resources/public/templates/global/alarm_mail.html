@@ -1,0 +1,64 @@
+<div class="index-content">
+  <section class="content-header">
+    <h4 data-lang="sidebar-alarm-mail-config"></h4>
+    <ol class="breadcrumb">
+      <li class="active"><i class="fa fa-cogs" data-lang="sidebar-global-settings"></i></li>
+      <li class="active" data-lang="sidebar-alarm-mail-config"></li>
+    </ol>
+  </section>
+  <section class="content">
+    <table id="alarm-mail-centers" data-pagination="true" data-page-list="[10, 20, 50, 100]" data-search="true"
+           data-show-refresh="true" data-show-toggle="true" data-striped="true">
+      <thead>
+      <tr>
+        <th data-field="host" data-sortable="true"><span data-lang="mail-host"></span></th>
+        <th data-field="port" data-sortable="true"><span data-lang="mail-port"></span></th>
+        <th data-field="username" data-sortable="true"><span data-lang="mail-username"></span></th>
+        <th data-field="password" data-sortable="true"><span data-lang="mail-password"></span></th>
+        <th data-field="createDate" data-sortable="true"><span data-lang="mail-createDate"></span></th>
+        <th data-field="updateDate" data-sortable="true"><span data-lang="mail-updateDate"></span></th>
+        <th data-field="operation" data-formatter="generateOperationButtons"><span data-lang="operation"></span></th>
+      </tr>
+      </thead>
+    </table>
+    <button type="button" class="btn-xs btn-success" data-toggle="modal" id="add-alarm-mail-config"
+            data-lang="operation-add"></button>
+  </section>
+</div>
+<div id="add-mail-center" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="close-mail-form" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" data-lang="alarm-mail-update"></h4>
+      </div>
+      <form id="mail-center-form">
+        <div class="modal-body">
+          <input type="hidden" id="id"/>
+          <div class="form-group">
+            <label for="host" class="control-label" data-lang="mail-host"></label>
+            <input type="text" class="form-control" id="host" name="host" required="required" autofocus="autofocus"/>
+          </div>
+          <div class="form-group">
+            <label for="port" class="control-label" data-lang="mail-port"></label>
+            <input type="text" class="form-control" id="port" name="port"/>
+          </div> <div class="form-group">
+            <label for="username" class="control-label" data-lang="mail-username"></label>
+            <input type="text" class="form-control" id="username" name="username"/>
+          </div> <div class="form-group">
+            <label for="password" class="control-label" data-lang="mail-password"></label>
+            <input type="text" class="form-control" id="password" name="password"/>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="add-mail-center-btn" type="submit" class="btn-xs btn-primary" data-lang="operation-submit"></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="/lib/bootstrap-table/bootstrap-table.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator_zh_CN.js"></script>
+<script src="/js/util/common.js"></script>
+<script src="/js/global/alarm_mail.js"></script>

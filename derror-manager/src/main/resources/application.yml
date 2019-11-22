@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+  thymeleaf:
+    prefix: classpath:/public/templates/
+    suffix: .html
+    mode: HTML5
+    cache: false

@@ -1,0 +1,65 @@
+<div class="index-content">
+    <section class="content-header">
+        <h4 data-lang="sidebar-alarm-group-member-config"></h4>
+        <ol class="breadcrumb">
+            <li class="active"><i class="fa fa-cogs" data-lang="sidebar-global-settings"></i></li>
+            <li class="active" data-lang="sidebar-alarm-group-member-config"></li>
+        </ol>
+    </section>
+    <section class="content">
+        <table id="member-centers" data-pagination="true" data-page-list="[10, 20, 50, 100]" data-search="true" data-show-refresh="true" data-show-toggle="true" data-striped="true">
+            <thead>
+            <tr>
+                <th data-field="groupName" data-sortable="true"><span data-lang="alarm-group-name"></span></th>
+                <th data-field="userName" data-sortable="true"><span data-lang="alarm-group-member-name"></span></th>
+                <th data-field="phone" data-sortable="true"><span data-lang="alarm-group-member-phone"></span></th>
+                <th data-field="mail" data-sortable="true"><span data-lang="alarm-group-member-mail"></span></th>
+                <th data-field="createDate" data-sortable="true"><span data-lang="alarm-group-member-createDate"></span></th>
+                <th data-field="updateDate" data-sortable="true"><span data-lang="alarm-group-member-updateDate"></span></th>
+                <th data-field="operation" data-formatter="generateOperationButtons"><span data-lang="operation"></span></th>
+            </tr>
+            </thead>
+        </table>
+        <button type="button" class="btn-xs btn-success" data-toggle="modal" id="add-member-config" data-lang="operation-add"></button>
+    </section>
+</div>
+<div id="add-member-center" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="close-add-member-form" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" data-lang="alarm-group-member-name-add-update"></h4>
+            </div>
+            <form id="member-center-form">
+                <div class="modal-body">
+                    <input type="hidden" id="memberId"/>
+                    <div class="form-group">
+                        <label for="userName" class="control-label" data-lang="alarm-group-member-name"></label>
+                        <input type="text" class="form-control" id="userName" name="userName" required="required" autofocus="autofocus"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="groupId" class="control-label" data-lang="alarm-group-name"></label>
+                        <select class="form-control" id="groupId">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="control-label" data-lang="alarm-group-member-phone"></label>
+                        <input type="text" class="form-control" id="phone" name="phone"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="mail" class="control-label" data-lang="alarm-group-member-mail"></label>
+                        <input type="text" class="form-control" id="mail" name="mail"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="add-member-center-btn" type="submit" class="btn-xs btn-primary" data-lang="operation-submit"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/lib/bootstrap-table/bootstrap-table.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator_zh_CN.js"></script>
+<script src="/js/util/common.js"></script>
+<script src="/js/global/alarm_group_member.js"></script>

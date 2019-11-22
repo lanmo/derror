@@ -1,0 +1,184 @@
+<div class="index-content">
+    <section class="content-header">
+        <h4 data-lang="sidebar-alarm-mode-config"></h4>
+        <ol class="breadcrumb">
+            <li class="active"><i class="fa fa-cogs" data-lang="sidebar-global-settings"></i></li>
+            <li class="active" data-lang="sidebar-alarm-mode-config"></li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="pull-left col-md-4">
+            <label class="control-label col-md-3">项目</label>
+            <select class="col-md-9" id="project-query" onchange="reload()">
+            </select>
+        </div>
+        <table id="mode-centers" data-pagination="true" data-page-list="[10, 20, 50, 100]" data-search="true" data-show-refresh="true" data-show-toggle="true" data-striped="true">
+            <thead>
+            <tr>
+                <th data-field="name" data-sortable="true"><span data-lang="alarm-mode-name"></span></th>
+                <th data-field="alarmSwitch" data-sortable="true" data-formatter="statusFormatter"><span data-lang="alarm-mode-switch"></span></th>
+                <th data-field="alarmGroup" data-sortable="true"><span data-lang="alarm-mode-group"></span></th>
+                <th data-field="mailAlarmSwitch" data-sortable="true" data-formatter="statusFormatter"><span data-lang="alarm-mode-mail-switch"></span></th>
+                <th data-field="smsAlarmSwitch" data-sortable="true" data-formatter="statusFormatter"><span data-lang="alarm-mode-sms-switch"></span></th>
+                <th data-field="dingAlarmSwitch" data-sortable="true" data-formatter="statusFormatter"><span data-lang="alarm-mode-ding-switch"></span></th>
+                <th data-field="alarmClientSwitch" data-sortable="true" data-formatter="statusFormatter"><span data-lang="alarm-mode-client-switch"></span></th>
+                <th data-field="alarmServerSwitch" data-sortable="true" data-formatter="statusFormatter"><span data-lang="alarm-mode-server-switch"></span></th>
+                <th data-field="createDate" data-sortable="true"><span data-lang="alarm-mode-create-date"></span></th>
+                <th data-field="updateDate" data-sortable="true"><span data-lang="alarm-mode-update-date"></span></th>
+                <th data-field="operation" data-formatter="generateOperationButtons"><span data-lang="operation"></span></th>
+            </tr>
+            </thead>
+        </table>
+        <button type="button" class="btn-xs btn-success" data-toggle="modal" id="add-mode-config" data-lang="operation-add"></button>
+    </section>
+</div>
+<div id="add-mode-center" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="close-add-reg-form" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" data-lang="alarm-mode-add-update" id="mode-title-update"></h4>
+            </div>
+            <form id="mode-center-form">
+                <div class="modal-body">
+                    <input type="hidden" id="modeId"/>
+                    <div class="form-group">
+                        <label for="modeName" class="control-label" data-lang="alarm-mode-name"></label>
+                        <input type="text" class="form-control" id="modeName" name="modeName" required="required" autofocus="autofocus"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="appName" class="control-label" data-lang="app-config-name"></label>
+                        <select class="form-control" id="appName">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="alarmGroup" class="control-label" data-lang="alarm-mode-group"></label>
+                        <select class="form-control" id="alarmGroup">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="alarmSwitch" class="control-label" data-lang="alarm-mode-switch"></label>
+                        <select class="form-control" id="alarmSwitch">
+                            <option value="1">开启</option>
+                            <option value="0">关闭</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mailAlarmSwitch" class="control-label" data-lang="alarm-mode-mail-switch"></label>
+                        <select class="form-control" id="mailAlarmSwitch">
+                            <option value="1">开启</option>
+                            <option value="0">关闭</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mailTitle" class="control-label" data-lang="alarm-mode-mail-title"></label>
+                        <input type="text" class="form-control" id="mailTitle" name="mailTitle" value="报警"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="mailContent" class="control-label" data-lang="alarm-mode-mail-content"></label>
+                        <input type="text" class="form-control" id="mailContent" name="mailContent" value="[报警][%s:异常][系统:%s][ip:%s][traceId:%s][exception:%s]	"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="smsAlarmSwitch" class="control-label" data-lang="alarm-mode-sms-switch"></label>
+                        <select class="form-control" id="smsAlarmSwitch">
+                            <option value="1">开启</option>
+                            <option value="0">关闭</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="smsContent" class="control-label" data-lang="alarm-mode-sms-content"></label>
+                        <input type="text" class="form-control" id="smsContent" name="smsContent"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="dingAlarmSwitch" class="control-label" data-lang="alarm-mode-ding-switch"></label>
+                        <select class="form-control" id="dingAlarmSwitch">
+                            <option value="1">开启</option>
+                            <option value="0">关闭</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dingUrl" class="control-label" data-lang="alarm-mode-ding-url"></label>
+                        <input type="text" class="form-control" id="dingUrl" name="dingUrl"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="dingContent" class="control-label" data-lang="alarm-mode-ding-content"></label>
+                        <input type="text" class="form-control" id="dingContent" name="dingContent"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="alarmClientSwitch" class="control-label" data-lang="alarm-mode-client-switch"></label>
+                        <select class="form-control" id="alarmClientSwitch">
+                            <option value="1">开启</option>
+                            <option value="0">关闭</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="alarmServerSwitch" class="control-label" data-lang="alarm-mode-server-switch"></label>
+                        <select class="form-control" id="alarmServerSwitch">
+                            <option value="1">开启</option>
+                            <option value="0">关闭</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="remark" class="control-label" data-lang="alarm-mode-remark"></label>
+                        <input type="text" class="form-control" id="remark" name="remark"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="add-mode-center-btn" type="submit" class="btn-xs btn-primary" data-lang="operation-submit"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="view-mode-center" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="close-view-reg-form" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" data-lang="alarm-mode-view"></h4>
+            </div>
+            <form id="view-center-form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="viewAppName" class="control-label" data-lang="app-config-name"></label>
+                        <input type="text" class="form-control" id="viewAppName"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="viewModeName" class="control-label" data-lang="alarm-mode-name"></label>
+                        <input type="text" class="form-control" id="viewModeName"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="viewMailTitle" class="control-label" data-lang="alarm-mode-mail-title"></label>
+                        <input type="text" class="form-control" id="viewMailTitle"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="viewMailContent" class="control-label" data-lang="alarm-mode-mail-content"></label>
+                        <input type="text" class="form-control" id="viewMailContent"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="viewSmsContent" class="control-label" data-lang="alarm-mode-sms-content"></label>
+                        <input type="text" class="form-control" id="viewSmsContent"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="viewDingUrl" class="control-label" data-lang="alarm-mode-ding-url"></label>
+                        <input type="text" class="form-control" id="viewDingUrl"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="viewDingContent" class="control-label" data-lang="alarm-mode-ding-content"></label>
+                        <input type="text" class="form-control" id="viewDingContent"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="viewRemark" class="control-label" data-lang="alarm-mode-remark"></label>
+                        <input type="text" class="form-control" id="viewRemark"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/lib/bootstrap-table/bootstrap-table.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator_zh_CN.js"></script>
+<script src="/js/util/common.js"></script>
+<script src="/js/global/alarm_mode.js"></script>

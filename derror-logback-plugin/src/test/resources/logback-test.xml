@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2018 org.jfaster.derror.
+  ~   <p>
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~ </p>
+  -->
+
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+	<property name="LOG_HOME" value="log"/>
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoder 默认配置为PatternLayoutEncoder -->
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{15} [%M:%L] %X{traceId} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- error appender -->
+	<appender name="errorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<File>${LOG_HOME}/derror.error.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/history/%d{yyyyMM,aux}/derror.error.log.%d{yyyyMMdd}</FileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{15} [%M:%L] %X{traceId} - %msg%n</pattern>
+		</encoder>
+		<filter class="org.jfaster.derror.logback.plugin.filter.LogbackErrorFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+			<env>dev</env>
+			<appName>dispatcher</appName>
+			<token>1234</token>
+			<traceKey>traceId</traceKey>
+			<url>http://localhost:8080</url>
+		</filter>
+	</appender>
+
+	<!-- 异步输出 -->
+	<appender name ="errorLogFile" class= "ch.qos.logback.classic.AsyncAppender">
+		<!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+		<discardingThreshold >0</discardingThreshold>
+		<!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+		<queueSize>2048</queueSize>
+		<IncludeCallerData>true</IncludeCallerData>
+		<!-- 添加附加的appender,最多只能添加一个 -->
+		<appender-ref ref ="errorLog"/>
+	</appender>
+
+		<root level="INFO">
+			<appender-ref ref="errorLogFile"/>
+			<appender-ref ref="console"/>
+		</root>
+</configuration>

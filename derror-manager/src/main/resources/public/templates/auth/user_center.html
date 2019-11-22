@@ -1,0 +1,68 @@
+<!--
+  ~
+  ~   Copyright 2018 derror.jfaster.org.
+  ~     <p>
+  ~   Licensed under the Apache License, Version 2.0 (the "License");
+  ~   you may not use this file except in compliance with the License.
+  ~   You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~   Unless required by applicable law or agreed to in writing, software
+  ~   distributed under the License is distributed on an "AS IS" BASIS,
+  ~   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~   See the License for the specific language governing permissions and
+  ~   limitations under the License.
+  ~   </p>
+  -->
+
+<div class="index-content">
+    <section class="content-header">
+        <h4 data-lang="sidebar-user-settings"></h4>
+        <ol class="breadcrumb">
+            <li class="active"><i class="fa fa-cogs" data-lang="sidebar-auth-settings"></i></li>
+            <li class="active" data-lang="sidebar-user-settings"></li>
+        </ol>
+    </section>
+    <section class="content">
+        <table id="user-centers" data-pagination="true" data-page-list="[10, 20, 50, 100]" data-search="true" data-show-refresh="true" data-show-toggle="true" data-striped="true">
+            <thead>
+            <tr>
+                <th data-field="userName" data-sortable="true"><span data-lang="user-name"></span></th>
+                <th data-field="operation" data-formatter="generateOperationButtons"><span data-lang="user-auth-modify"></span></th>
+            </tr>
+            </thead>
+        </table>
+    </section>
+</div>
+
+<div id="update-role-center" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="close-mail-form" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" data-lang="user-auth-edit-role"></h4>
+            </div>
+            <form id="role-center-form">
+                <div class="modal-body">
+                    <input type="hidden" id="id"/>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="userId" name="userId"/>
+                    </div>
+                    <label for="role" class="control-label" data-lang="user-role"></label>
+                    <select class="form-control" id="role">
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button id="add-mail-center-btn" type="submit" class="btn-xs btn-primary" data-lang="operation-submit"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/lib/bootstrap-table/bootstrap-table.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator_zh_CN.js"></script>
+<script src="/js/util/common.js"></script>
+<script src="/js/auth/user_center.js"></script>

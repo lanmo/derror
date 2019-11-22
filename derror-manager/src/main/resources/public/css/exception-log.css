@@ -1,0 +1,20 @@
+#content .panel-default>.panel-heading{
+  background: none;
+}
+#formSearch{
+  padding: 20px 0 30px;
+}
+.content-line{
+  margin-top: 12px;
+}
+.content-line div{
+  height: 30px;
+  line-height: 30px;
+}
+td.details-control {
+  background: url('../img/details_open.png') no-repeat center center;
+  cursor: pointer;
+}
+tr.shown td.details-control {
+  background: url('../img/details_close.png') no-repeat center center;
+}

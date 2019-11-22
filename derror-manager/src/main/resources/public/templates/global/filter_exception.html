@@ -1,0 +1,73 @@
+<div class="index-content">
+    <section class="content-header">
+        <h4 data-lang="sidebar-filter-exception-config"></h4>
+        <ol class="breadcrumb">
+            <li class="active"><i class="fa fa-cogs" data-lang="sidebar-global-settings"></i></li>
+            <li class="active" data-lang="sidebar-filter-exception-config"></li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="pull-left col-md-4">
+            <label class="control-label col-md-3">项目</label>
+            <select class="col-md-9" id="project-query" onchange="reload()">
+            </select>
+        </div>
+        <table id="exception-centers" data-pagination="true" data-page-list="[10, 20, 50, 100]" data-search="true" data-show-refresh="true" data-show-toggle="true" data-striped="true">
+            <thead>
+            <tr>
+                <th data-field="appName" data-sortable="true"><span data-lang="filter-exception-app"></span></th>
+                <th data-field="className" data-sortable="true"><span data-lang="filter-exception-name"></span></th>
+                <th data-field="status" data-sortable="true" data-formatter="statusFormatter"><span data-lang="filter-exception-status"></span></th>
+                <th data-field="remark" data-sortable="true"><span data-lang="filter-exception-remark"></span></th>
+                <th data-field="createDate" data-sortable="true"><span data-lang="filter-exception-create-date"></span></th>
+                <th data-field="updateDate" data-sortable="true"><span data-lang="filter-exception-update-date"></span></th>
+                <th data-field="operation" data-formatter="generateOperationButtons"><span data-lang="operation"></span></th>
+            </tr>
+            </thead>
+        </table>
+        <button type="button" class="btn-xs btn-success" data-toggle="modal" id="add-filter-config" data-lang="operation-add"></button>
+    </section>
+</div>
+<div id="add-filter-center" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="close-add-filter-form" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" data-lang="filter-exception-update"></h4>
+            </div>
+            <form id="filter-center-form">
+                <div class="modal-body">
+                    <input type="hidden" id="exceptionId"/>
+                    <div class="form-group">
+                        <label for="className" class="control-label" data-lang="filter-exception-name"></label>
+                        <input type="text" class="form-control" id="className" name="className" required="required" autofocus="autofocus"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="appId" class="control-label" data-lang="filter-exception-app"></label>
+                        <select class="form-control" id="appId">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="status" class="control-label" data-lang="filter-exception-status"></label>
+                        <select class="form-control" id="status">
+                            <option value="1">开启</option>
+                            <option value="0">关闭</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="remark" class="control-label" data-lang="alarm-mode-remark"></label>
+                        <input type="text" class="form-control" id="remark" name="remark"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="add-filter-center-btn" type="submit" class="btn-xs btn-primary" data-lang="operation-submit"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/lib/bootstrap-table/bootstrap-table.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator_zh_CN.js"></script>
+<script src="/js/util/common.js"></script>
+<script src="/js/global/filter_exception.js"></script>

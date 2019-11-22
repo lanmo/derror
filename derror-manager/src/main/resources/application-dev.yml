@@ -1,0 +1,24 @@
+mango:
+  #dao所在的基包，多个包用逗号分割
+  scan-package: org.jfaster.derror.manager.dao
+  #mango引用数据源名配置，ds1和ds2..是数据源的key，可以自定义，如果没有slave，可以不配置。
+  #mango中的连接池使用hikaricp，所以hikaricp中的配置在此都可以配置。
+  datasources:
+    -
+      name: derror
+      master:
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/derror?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8
+        user-name: admin
+        password: admin
+        maximum-pool-size: 10
+        connection-timeout: 3000
+      slaves:
+        -
+          driver-class-name: com.mysql.jdbc.Driver
+          jdbc-url: jdbc:mysql://localhost:3306/derror?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8
+          user-name: admin
+          password: admin
+          maximum-pool-size: 10
+          connection-timeout: 3000
+

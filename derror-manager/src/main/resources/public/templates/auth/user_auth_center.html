@@ -1,0 +1,46 @@
+<!--
+  ~
+  ~   Copyright 2018 derror.jfaster.org.
+  ~     <p>
+  ~   Licensed under the Apache License, Version 2.0 (the "License");
+  ~   you may not use this file except in compliance with the License.
+  ~   You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~   Unless required by applicable law or agreed to in writing, software
+  ~   distributed under the License is distributed on an "AS IS" BASIS,
+  ~   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~   See the License for the specific language governing permissions and
+  ~   limitations under the License.
+  ~   </p>
+  -->
+
+<div class="index-content" xmlns:th="http://www.w3.org/1999/xhtml">
+    <section class="content-header">
+        <h4 data-lang="sidebar-user-settings"></h4>
+        <ol class="breadcrumb">
+            <li class="active"><i class="fa fa-cogs" data-lang="sidebar-global-settings"></i></li>
+            <li class="active" data-lang="sidebar-user-auth-modify"></li>
+        </ol>
+    </section>
+    <section class="content">
+        <input th:value="${userId}" type="hidden" id="userId"/>
+        <table id="user-auth-centers" data-pagination="true" data-page-list="[10, 20, 50, 100]" data-search="true" data-show-refresh="true" data-show-toggle="true" data-striped="true">
+            <thead>
+            <tr>
+                <th data-field="projectName" data-sortable="true"><span data-lang="project-name"></span></th>
+                <th data-field="role" data-sortable="true" data-formatter="formatRoleId"><span data-lang="user-role"></span></th>
+                <th data-field="apps" data-sortable="true" data-formatter="formatApps"><span data-lang="app-list-name"></span></th>
+            </tr>
+            </thead>
+        </table>
+        <button type="button" class="btn-xs btn-success" data-toggle="modal" id="modify-auth-config" data-lang="user-auth-edit"></button>
+    </section>
+</div>
+
+<script src="/lib/bootstrap-table/bootstrap-table.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator_zh_CN.js"></script>
+<script src="/js/util/common.js"></script>
+<script src="/js/auth/user_auth_center.js"></script>

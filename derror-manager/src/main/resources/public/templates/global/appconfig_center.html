@@ -1,0 +1,77 @@
+<div class="index-content">
+    <section class="content-header">
+        <h4 data-lang="sidebar-appconfig-center"></h4>
+        <ol class="breadcrumb">
+            <li class="active"><i class="fa fa-cogs" data-lang="sidebar-global-settings"></i></li>
+            <li class="active" data-lang="sidebar-appconfig-center"></li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="pull-left col-md-4">
+            <label class="control-label col-md-3">项目</label>
+            <select class="col-md-9" id="project-query" onchange="reload()">
+            </select>
+        </div>
+        <table id="reg-centers" data-pagination="true" data-page-list="[10, 20, 50, 100]" data-show-refresh="true" data-show-toggle="true" data-striped="true">
+            <thead>
+            <tr>
+                <th data-field="appName" data-sortable="true"><span data-lang="app-config-name"></span></th>
+                <th data-field="appKey" data-sortable="true"><span data-lang="app-config-token"></span></th>
+                <th data-field="retain" data-sortable="true" data-formatter="retainFormat"><span data-lang="app-config-retain"></span></th>
+                <th data-field="frequency" data-sortable="true" data-formatter="frequencyFormat"><span data-lang="app-config-frequency"></span></th>
+                <!--<th data-field="frequencyTime" data-sortable="true" data-formatter="frequencyTimeFormat"><span data-lang="app-config-frequencyTime"></span></th>-->
+                <th data-field="status" data-sortable="true" data-formatter="statusFormatter"><span data-lang="app-config-status"></span></th>
+                <th data-field="remark" data-sortable="true"><span data-lang="app-config-describe"></span></th>
+                <th data-field="createDate" data-sortable="true"><span data-lang="app-config-createDate"></span></th>
+                <th data-field="updateDate" data-sortable="true"><span data-lang="app-config-updateDate"></span></th>
+                <th data-field="operation" data-formatter="generateOperationButtons"><span data-lang="operation"></span></th>
+            </tr>
+            </thead>
+        </table>
+        <button type="button" class="btn-xs btn-success" data-toggle="modal" id="add-app-config" data-lang="operation-add"></button>
+    </section>
+</div>
+<div id="add-reg-center" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="close-add-reg-form" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" data-lang="add-app-center"></h4>
+            </div>
+            <form id="reg-center-form">
+                <div class="modal-body">
+                    <input type="hidden" id="appId"/>
+                    <div class="form-group">
+                        <label for="appName" class="control-label" data-lang="app-config-name"></label>
+                        <input type="text" class="form-control" id="appName" name="appName" required="required" autofocus="autofocus"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectName" class="control-label" data-lang="project-name"></label>
+                        <select class="form-control" id="projectName">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="retain" class="control-label" data-lang="app-config-retain"></label>
+                        <input type="text" class="form-control" id="retain" name="retain" value="7"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="frequency" class="control-label" data-lang="app-config-frequency-time"></label>
+                        <input type="text" class="form-control" id="frequency" name="frequency" value="15"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="remark" class="control-label" data-lang="app-config-describe"></label>
+                        <input type="text" class="form-control" id="remark" name="remark"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="add-reg-center-btn" type="submit" class="btn-xs btn-primary" data-lang="operation-submit"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/lib/bootstrap-table/bootstrap-table.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator.js"></script>
+<script src="/lib/BootstrapValidator/js/bootstrapValidator_zh_CN.js"></script>
+<script src="/js/util/common.js"></script>
+<script src="/js/global/appconfig_center.js"></script>
