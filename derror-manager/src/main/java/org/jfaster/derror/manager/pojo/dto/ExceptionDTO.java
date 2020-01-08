@@ -17,9 +17,9 @@
 
 package org.jfaster.derror.manager.pojo.dto;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * @description: 异常报警dto
@@ -28,14 +28,8 @@ import org.hibernate.validator.constraints.NotBlank;
  **/
 @Data
 public class ExceptionDTO {
-
     @NotNull(message = "app config id can not null ")
     private Long appId;
-    /**
-     * 系统名
-     */
-    @NotBlank(message = "system name can not null ")
-    private String system;
     /**
      * 主机ip
      */
@@ -74,9 +68,4 @@ public class ExceptionDTO {
      */
     @NotBlank(message = "content  can not null ")
     private String content;
-    /**
-     * 系统环境
-     */
-    @NotBlank(message = "system env can not null ")
-    private String env;
 }

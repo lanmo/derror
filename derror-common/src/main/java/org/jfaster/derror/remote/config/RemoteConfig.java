@@ -27,8 +27,6 @@ import lombok.Data;
 @Data
 public class RemoteConfig {
     private AppConfig appConfig;
-    private ModeConfig modeConfig;
-    private List<AlarmGroupMember> members;
     private List<FilterExceptionConfig> exceptionConfigs;
     private List<Class<?>> filterExceptions;
 }

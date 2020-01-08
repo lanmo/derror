@@ -17,7 +17,6 @@
 
 package org.jfaster.derror.enums;
 
-import org.jfaster.derror.constant.DerrorConstant;
 import lombok.Getter;
 
 /**
@@ -26,14 +25,15 @@ import lombok.Getter;
  */
 public enum ConfigEnum {
 
-    THREAD_POOL_CORE("derror_thread_core", DerrorConstant.THREAD_CORE),
-    THREAD_POOL_MAX("derror_thread_max", DerrorConstant.THREAD_MAX),
+    THREAD_POOL_CORE("thread_core", 1),
+    QUEUE_SIZE("queue_size", 256),
     /***报警配置end**/
 
     /***读取远程配置start**/
-    REMOTE_INTERVAL("derror_remote_interval", 10),
-    CONNECTION_TIMEOUT("derror_remote_connectionTimeOut", 1000),
-    SOCKET_TIMEOUT("derror_remote_socketTimeOut", 1000),
+    REMOTE_INTERVAL("remote_interval", 10),
+    CONNECTION_TIMEOUT("remote_connection_timeout", 1000),
+    SOCKET_TIMEOUT("remote_socket_timeout", 1000),
+    WRITE_TIMEOUT("remote_write_timeout", 1000),
     /***读取远程配置end**/
     ;
 

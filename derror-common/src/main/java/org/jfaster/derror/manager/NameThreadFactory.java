@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class NameThreadFactory implements ThreadFactory {
 
-    private static final AtomicInteger poolNumber = new AtomicInteger(1);
+    private static final AtomicInteger POOL_NUMBER = new AtomicInteger(1);
     private final AtomicInteger threadNumber = new AtomicInteger(1);
     private ThreadGroup threadGroup;
     private String namePrefix;
@@ -34,17 +34,15 @@ public class NameThreadFactory implements ThreadFactory {
     private String name;
 
     public NameThreadFactory(String name, boolean daemon, int priority) {
-
         if (priority > Thread.MAX_PRIORITY || priority<Thread.MIN_PRIORITY) {
             throw new IllegalArgumentException("priority: " + priority + " (expected: Thread.MIN_PRIORITY <= priority <= Thread.MAX_PRIORITY)");
         }
-
         this.name = name;
         this.daemon = daemon;
         this.priority = priority;
         SecurityManager sm = System.getSecurityManager();
         this.threadGroup = sm != null ? sm.getThreadGroup() : Thread.currentThread().getThreadGroup();
-        this.namePrefix = "pool-" + poolNumber.getAndIncrement() + "-" + name;
+        this.namePrefix = "pool-" + POOL_NUMBER.getAndIncrement() + "-" + name;
     }
 
     public NameThreadFactory(String name) {

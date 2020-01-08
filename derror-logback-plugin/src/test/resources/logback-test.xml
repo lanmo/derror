@@ -44,9 +44,8 @@
 			<level>ERROR</level>
 			<onMatch>ACCEPT</onMatch>
 			<onMismatch>DENY</onMismatch>
-			<env>dev</env>
-			<appName>dispatcher</appName>
-			<token>1234</token>
+			<appName>canal</appName>
+			<token>GDMKNySCMy</token>
 			<traceKey>traceId</traceKey>
 			<url>http://localhost:8080</url>
 		</filter>

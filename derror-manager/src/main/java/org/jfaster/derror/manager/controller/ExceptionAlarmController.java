@@ -40,15 +40,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/derror/exception")
 @Validated
 public class ExceptionAlarmController {
-
-
-    @Autowired
-    private IExceptionAlarmService exceptionAlarmService;
-
     @RequestMapping("/alarm")
     public ApiResponse alarm(@RequestBody ExceptionDTO exceptionDTO) {
         WorkerManager.submit(new ExceptionAlarmWorker(exceptionDTO));
-        //exceptionAlarmService.alarm(exceptionDTO);
         return ApiResponse.success();
     }
 }

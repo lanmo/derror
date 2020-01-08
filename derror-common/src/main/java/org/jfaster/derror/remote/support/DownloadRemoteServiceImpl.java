@@ -30,6 +30,9 @@ import org.jfaster.derror.remote.config.RemoteConfig;
 import org.jfaster.derror.util.DerrorHttpUtil;
 import org.jfaster.derror.util.ExceptionUtil;
 
+import static org.jfaster.derror.constant.DerrorConstant.GET_CONFIG;
+import static org.jfaster.derror.constant.DerrorConstant.SAVE_EXCEPTION_LOG;
+
 /**
  * @author yangnan
  */
@@ -40,18 +43,20 @@ public class DownloadRemoteServiceImpl implements IDownloadRemoteService {
     @Override
     public RemoteConfig getRemoteConfig(ClientConfig config) {
         StringBuilder url = new StringBuilder(config.getUrl());
-        url.append(DerrorConstant.GET_CONFIG);
+        url.append(GET_CONFIG);
         url.append("?token=").append(config.getToken());
         url.append("&appName=").append(config.getAppName());
         try {
-            String resp = DerrorHttpUtil.getInstance().get(url.toString());
+            String resp = DerrorHttpUtil.getInstance().doGet(url.toString());
             BaseResponse<RemoteConfig> response = JSON.parseObject(resp, new
                     TypeReference<BaseResponse<RemoteConfig>>(){});
             if (response != null && response.isSuccess()) {
                 return response.getData();
             }
         } catch (Throwable e) {
-            LOGGER.error("DownloadRemote config fail url:{}", url, ExceptionUtil.handleException(e));
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("DownloadRemote config fail url:{}", url, ExceptionUtil.handleException(e));
+            }
         }
         return null;
     }
@@ -59,12 +64,14 @@ public class DownloadRemoteServiceImpl implements IDownloadRemoteService {
     @Override
     public void sendExceptionToServer(ClientConfig config, ExceptionLog exceptionLog) {
         StringBuilder url = new StringBuilder(config.getUrl());
-        url.append(DerrorConstant.SAVE_EXCEPTION_LOG);
+        url.append(SAVE_EXCEPTION_LOG);
         try {
             String body = JSON.toJSONString(exceptionLog);
-            DerrorHttpUtil.getInstance().postJSON(url.toString(), body, DerrorConstant.UTF_8);
+            DerrorHttpUtil.getInstance().doPostJson(url.toString(), body);
         } catch (Throwable e) {
-            LOGGER.error("DownloadRemote config fail url:{}", url, ExceptionUtil.handleException(e));
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("DownloadRemote config fail url:{}", url, ExceptionUtil.handleException(e));
+            }
         }
     }
 }

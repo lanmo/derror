@@ -17,10 +17,8 @@
 
 package org.jfaster.derror.manager.logback.plugin.test;
 
-import org.jfaster.derror.manager.ConfigManager;
-import org.jfaster.derror.util.ThreadLocalUtil;
-import java.util.HashMap;
-import java.util.Map;
+import org.jfaster.derror.manager.CacheManager;
+import org.jfaster.derror.util.ExtendUtil;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -29,17 +27,15 @@ import org.slf4j.MDC;
 
 public class ErrorTest {
 
-    private Logger logger = LoggerFactory.getLogger(ErrorTest.class);
+    private static Logger logger = LoggerFactory.getLogger(ErrorTest.class);
 
     public static void main(String[] args) {
+        errorTest();
     }
-    @Test
-    public void errorTest() {
+    public static void errorTest() {
         MDC.put("traceId", "ddddd");
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("url", "http://localhost:8080");
-        map.put("uid", 3);
-        ThreadLocalUtil.set(map);
+        ExtendUtil.put("url", "http://localhost:8080");
+        ExtendUtil.put("uid", "3");
         for (int i=0; i<5; i++) {
             try {
                 int a = 1 / 0;
@@ -47,12 +43,13 @@ public class ErrorTest {
                 logger.error("sadas", e);
             }
             try {
-                Thread.sleep(50 * 1000);
+                System.out.println(ExtendUtil.getValue());
+                Thread.sleep(10 * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        ThreadLocalUtil.remove();
+        ExtendUtil.clear();
         System.out.println(MDC.getCopyOfContextMap());
     }
 
@@ -64,7 +61,7 @@ public class ErrorTest {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            ConfigManager.addUnResolveClass(i + "");
+            CacheManager.addUnResolveClass(i + "");
         }
     }
 }

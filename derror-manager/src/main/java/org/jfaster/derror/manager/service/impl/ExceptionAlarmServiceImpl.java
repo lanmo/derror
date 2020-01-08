@@ -17,7 +17,9 @@
 
 package org.jfaster.derror.manager.service.impl;
 
+import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.RateLimiter;
+import org.apache.commons.lang3.StringUtils;
 import org.jfaster.derror.manager.dao.ExceptionLogDAO;
 import org.jfaster.derror.manager.enums.SwitchEnum;
 import org.jfaster.derror.manager.local.AlarmGroupConfigSupport;
@@ -35,20 +37,21 @@ import org.jfaster.derror.manager.pojo.dto.ExceptionDTO;
 import org.jfaster.derror.manager.pojo.dto.dingding.DingTextDTO;
 import org.jfaster.derror.manager.service.IExceptionAlarmService;
 import org.jfaster.derror.manager.utils.DingDingUtil;
-import org.jfaster.derror.manager.utils.ObjectUtil;
 import org.jfaster.derror.manager.utils.PatternUtil;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
+
+import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
+
+import static org.jfaster.derror.manager.constant.CommonConstant.*;
 
 /**
  * @description: 异常报警
@@ -60,7 +63,6 @@ public class ExceptionAlarmServiceImpl implements IExceptionAlarmService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionAlarmServiceImpl.class);
 
-
     @Autowired
     private AlarmGroupMembersSupport alarmGroupMembersSupport;
 
@@ -70,7 +72,6 @@ public class ExceptionAlarmServiceImpl implements IExceptionAlarmService {
     @Autowired
     private AlarmMailConfigSupport alarmMailConfigSupport;
 
-
     @Autowired
     private ExceptionLogDAO exceptionLogDAO;
 
@@ -79,6 +80,9 @@ public class ExceptionAlarmServiceImpl implements IExceptionAlarmService {
 
     @Autowired
     private ModeConfigSupport modeConfigSupport;
+
+    @Value("${spring.profiles.active}")
+    private String env;
 
 
     @Override
@@ -105,24 +109,64 @@ public class ExceptionAlarmServiceImpl implements IExceptionAlarmService {
             LOGGER.warn("alarm mode config is null ");
             return;
         }
-        if (Alarmswitch(alarmModeConfigDO)) {
+        if (alarmSwitch(alarmModeConfigDO)) {
             return;
         }
+
+        Map<String, String> map = objectToMap(exceptionDTO, appConfigDO);
         //钉钉报警
-        alarmDing(alarmModeConfigDO, exceptionDTO);
+        alarmDing(alarmModeConfigDO, map);
         //邮件报警
-        alarmMail(alarmModeConfigDO, exceptionDTO);
+        alarmMail(alarmModeConfigDO, map);
         //插入异常信息
         ExceptionLogDO exceptionLogDO = new ExceptionLogDO();
         BeanUtils.copyProperties(exceptionDTO, exceptionLogDO);
         exceptionLogDO.setCreateDate(new Date());
         exceptionLogDO.setUpdateDate(new Date());
         exceptionLogDO.setAppName(appConfigDO.getAppName());
-        exceptionLogDAO.insertExceptionLog(exceptionLogDO);
+        exceptionLogDO.setEnv(env);
+        exceptionLogDAO.add(exceptionLogDO);
 
     }
 
-    private boolean Alarmswitch(AlarmModeConfigDO alarmModeConfigDO) {
+    private Map<String, String> objectToMap(ExceptionDTO exceptionDTO, AppConfigDO appConfigDO) {
+        Map<String, String> valueMap = Maps.newHashMap();
+        valueMap.put(APP_NAME, appConfigDO.getAppName());
+        valueMap.put(ENV, env);
+        valueMap.put(HOST, exceptionDTO.getHost());
+        valueMap.put(TRACE_ID, exceptionDTO.getTraceId());
+        valueMap.put(EXCEPTION_MSG, exceptionDTO.getExceptionMsg());
+        putValue(exceptionDTO.getExt(), valueMap);
+        putValue(exceptionDTO.getMdcValue(), valueMap);
+        return valueMap;
+    }
+
+    /**
+     * 设置扩展属性
+     *
+     * @param value
+     * @param valueMap
+     */
+    private void putValue(String value, Map<String, String> valueMap) {
+        String[] mdcValues = StringUtils.split(value, "&");
+        if (mdcValues == null || mdcValues.length <=0) {
+            return;
+        }
+        for (String mdcValue : mdcValues) {
+            String[] vs = StringUtils.split(mdcValue, "=");
+            if (vs != null && vs.length == 2) {
+                valueMap.put(vs[0], vs[1]);
+            }
+        }
+    }
+
+    /**
+     * 判断开关
+     *
+     * @param alarmModeConfigDO
+     * @return
+     */
+    private boolean alarmSwitch(AlarmModeConfigDO alarmModeConfigDO) {
         Integer alarmSwitch = alarmModeConfigDO.getAlarmSwitch();
         Integer alarmServerSwitch = alarmModeConfigDO.getAlarmServerSwitch();
         if (SwitchEnum.CLOSE.getSwitchType().equals(alarmSwitch) || SwitchEnum.CLOSE.getSwitchType()
@@ -136,7 +180,7 @@ public class ExceptionAlarmServiceImpl implements IExceptionAlarmService {
     /**
      * 邮件报警
      */
-    private void alarmMail(AlarmModeConfigDO alarmModeConfigDO, ExceptionDTO exceptionDTO) {
+    private void alarmMail(AlarmModeConfigDO alarmModeConfigDO, Map<String, String> map) {
         if (SwitchEnum.CLOSE.getSwitchType().equals(alarmModeConfigDO.getMailAlarmSwitch())) {
             LOGGER.warn("mail alarm is closed");
             return;
@@ -161,10 +205,10 @@ public class ExceptionAlarmServiceImpl implements IExceptionAlarmService {
             return;
         }
         String[] mailMembers = receivers.toArray(new String[receivers.size()]);
-        buildMailSender(mailMembers, alarmModeConfigDO, exceptionDTO);
+        buildMailSender(mailMembers, alarmModeConfigDO, map);
     }
 
-    private void buildMailSender(String[] mailMembers, AlarmModeConfigDO alarmModeConfigDO, ExceptionDTO exceptionDTO) {
+    private void buildMailSender(String[] mailMembers, AlarmModeConfigDO alarmModeConfigDO, final Map<String, String> map) {
         //获取邮件信息配置
         Integer alarmModeConfigId = alarmModeConfigDO.getId();
         List<AlarmMailConfigDO> alarmMailInfo = alarmMailConfigSupport.getAlarmMailInfo(alarmModeConfigId);
@@ -190,7 +234,7 @@ public class ExceptionAlarmServiceImpl implements IExceptionAlarmService {
             message.setSubject(alarmModeConfigDO.getMailTitle());
             message.setTo(mailMembers);
             message.setFrom(sender.getUsername());
-            message.setText(PatternUtil.getKey(alarmModeConfigDO.getMailContent(), ObjectUtil.objectToMap(exceptionDTO)));
+            message.setText(PatternUtil.getKey(alarmModeConfigDO.getMailContent(), map));
             //发送邮件
             sender.send(message);
         });
@@ -199,7 +243,7 @@ public class ExceptionAlarmServiceImpl implements IExceptionAlarmService {
     /**
      * 钉钉报警
      */
-    private void alarmDing(AlarmModeConfigDO alarmModeConfigDO, ExceptionDTO exceptionDTO) {
+    private void alarmDing(AlarmModeConfigDO alarmModeConfigDO, Map<String, String> map) {
         try {
             if (SwitchEnum.CLOSE.getSwitchType().equals(alarmModeConfigDO.getDingAlarmSwitch())) {
                 LOGGER.warn("ding alarm is closed");
@@ -207,7 +251,7 @@ public class ExceptionAlarmServiceImpl implements IExceptionAlarmService {
             }
             DingTextDTO dingTextDTO = new DingTextDTO();
             String dingContent = alarmModeConfigDO.getDingContent();
-            dingTextDTO.setContent(PatternUtil.getKey(dingContent, ObjectUtil.objectToMap(exceptionDTO)));
+            dingTextDTO.setContent(PatternUtil.getKey(dingContent, map));
             DingDingUtil.sendMessage(dingTextDTO, alarmModeConfigDO.getDingUrl());
         } catch (Exception e) {
             LOGGER.error("ding alarm is error ", e);

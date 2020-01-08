@@ -41,6 +41,4 @@ public class ExceptionLog {
     private String exceptionMsg;
     /**异常栈信息*/
     private String content;
-    /**环境标识*/
-    private String env;
 }

@@ -23,6 +23,9 @@ import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.jfaster.derror.logging.InternalLogger;
+import org.jfaster.derror.logging.InternalLoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +35,7 @@ import org.slf4j.LoggerFactory;
  */
 public class NetUtil {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(NetUtil.class);
+    private static InternalLogger LOGGER = InternalLoggerFactory.getLogger(NetUtil.class);
 
     /**
      * 获取本地ip地址，有可能会有多个地址, 若有多个网卡则会搜集多个网卡的ip地址
@@ -79,15 +82,6 @@ public class NetUtil {
 
         return null;
     }
-    /**
-     * 取得当前机器的address信息，若有多个则随机选一个
-     */
-    public static InetAddress resolveLocalAddress() {
-        Set<InetAddress> addrs = resolveLocalAddresses();
-        if (addrs != null && !addrs.isEmpty()) {return addrs.iterator().next();}
-        return null;
-    }
-
     private static final String LOCAL_IP = "127.0.0.1";
 
     /**

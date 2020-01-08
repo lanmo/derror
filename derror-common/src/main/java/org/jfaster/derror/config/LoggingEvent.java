@@ -45,16 +45,16 @@ public interface LoggingEvent {
     Map<String, String> getMDCPropertyMap();
 
     /**
-     * Returns the env
-     *
-     * @return
-     */
-    String getEnv();
-
-    /**
      * 获取扩展字段
      * @return
      */
-    Map<String, Object> getExt();
+    Map<String, String> getExt();
+
+    /**
+     * 获取应用名称
+     *
+     * @return
+     */
+    String getAppName();
 
 }

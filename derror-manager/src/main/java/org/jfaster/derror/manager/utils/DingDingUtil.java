@@ -36,7 +36,6 @@ public class DingDingUtil {
 
     private static Logger LOGGER = LoggerFactory.getLogger(DingDingUtil.class);
 
-
     public static void sendMessage(DingTextDTO textDTO, String dingUrl) {
         if(StringUtils.isEmpty(dingUrl)){
             LOGGER.warn("钉钉发送消息url为空不发送消息");

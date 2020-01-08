@@ -9,16 +9,16 @@ mango:
       master:
         driver-class-name: com.mysql.jdbc.Driver
         jdbc-url: jdbc:mysql://localhost:3306/derror?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8
-        user-name: admin
-        password: admin
+        user-name: root
+        password: yangnanyangnan
         maximum-pool-size: 10
         connection-timeout: 3000
       slaves:
         -
           driver-class-name: com.mysql.jdbc.Driver
           jdbc-url: jdbc:mysql://localhost:3306/derror?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8
-          user-name: admin
-          password: admin
+          user-name: root
+          password: yangnanyangnan
           maximum-pool-size: 10
           connection-timeout: 3000
 

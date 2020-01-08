@@ -32,4 +32,10 @@ public class CommonConstant {
     public static final String SEPARATOR = "&";
     /**cookie 有效期*/
     public static final int SECONDS_PER_HOUR = 24 * 60;
+
+    public static final String APP_NAME = "appName";
+    public static final String ENV = "env";
+    public static final String HOST = "host";
+    public static final String TRACE_ID = "traceId";
+    public static final String EXCEPTION_MSG = "exceptionMsg";
 }

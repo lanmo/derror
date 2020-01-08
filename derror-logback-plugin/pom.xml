@@ -5,10 +5,10 @@
   <parent>
     <artifactId>derror</artifactId>
     <groupId>org.jfaster.derror</groupId>
-    <version>1.0.0</version>
+    <version>1.0.7</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <version>1.0.0</version>
+  <version>1.0.7</version>
 
   <artifactId>derror-logback-plugin</artifactId>
 
@@ -20,7 +20,6 @@
     <dependency>
       <groupId>org.jfaster.derror</groupId>
       <artifactId>derror-common</artifactId>
-      <version>1.0.0</version>
     </dependency>
 
     <!-- logback -->

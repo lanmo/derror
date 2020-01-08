@@ -21,12 +21,14 @@ package org.jfaster.derror.manager.pojo.domain;
 import java.util.Date;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
+import org.jfaster.mango.annotation.ID;
 
 /**
  * @author yangnan
  */
 @Data
 public class ExceptionLogDO {
+  @ID
   private Long id;
   private Long appId;
   private String host;

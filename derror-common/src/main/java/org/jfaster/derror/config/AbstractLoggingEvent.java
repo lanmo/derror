@@ -17,15 +17,14 @@
 
 package org.jfaster.derror.config;
 
-import ch.qos.logback.classic.spi.IThrowableProxy;
-import ch.qos.logback.classic.spi.ThrowableProxy;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import org.jfaster.derror.constant.DerrorConstant;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.jfaster.derror.constant.DerrorConstant.KEY_PREFIX;
+import static org.jfaster.derror.util.StringUtil.isEmpty;
 
 /**
  * @author yangnan
@@ -37,20 +36,14 @@ public abstract class AbstractLoggingEvent implements LoggingEvent {
     private Throwable throwable;
     @Getter
     private Map<String, String> mdcPropertyMap;
+    @Getter
+    private Map<String, String> ext;
+    @Getter
     @Setter
-    @Getter
-    private String env;
-    @Getter
-    private Map<String, Object> ext;
-
-    protected void transferThrowable(IThrowableProxy throwableProxy) {
-        if (throwableProxy instanceof ThrowableProxy) {
-            throwable = ((ThrowableProxy) throwableProxy).getThrowable();
-        }
-    }
+    private String appName;
 
     public void setMdcPropertyMap(Map<String, String> mdcPropertyMap) {
-        this.mdcPropertyMap = new HashMap<String, String>(mdcPropertyMap);
+        this.mdcPropertyMap = new HashMap<>(mdcPropertyMap);
         parseExt();
     }
 
@@ -58,25 +51,21 @@ public abstract class AbstractLoggingEvent implements LoggingEvent {
      * 解析扩展字段
      */
     protected void parseExt() {
-        Map<String, String> map = this.mdcPropertyMap;
-        if (map == null || map.isEmpty()) {
+        if (mdcPropertyMap == null || mdcPropertyMap.isEmpty()) {
             return;
         }
-        if (ext == null) {
-            ext = new HashMap<String, Object>(map.size());
-        }
-        String[] keys = map.keySet().toArray(new String[map.size()]);
-        String keyPrefix = DerrorConstant.KEY_PREFIX;
+        ext = new HashMap<>(mdcPropertyMap.size());
+        String[] keys = mdcPropertyMap.keySet().toArray(new String[mdcPropertyMap.size()]);
         for (String key : keys) {
-            int index = key.indexOf(keyPrefix);
+            if (isEmpty(key)) {
+                continue;
+            }
+            int index = key.indexOf(KEY_PREFIX);
             if (index >= 0) {
-                JSONObject object = JSON.parseObject(map.get(key));
-                ext.put(key.substring(index + keyPrefix.length()), object);
-                map.remove(key);
+                ext.put(key.substring(index + KEY_PREFIX.length()), mdcPropertyMap.remove(key));
             }
         }
     }
-
 
     @Override
     public Map<String, String> getMDCPropertyMap() {

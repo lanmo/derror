@@ -32,11 +32,6 @@ public interface Supervisor {
     void onError(LoggingEvent event);
 
     /**
-     * 启动
-     */
-    void start();
-
-    /**
      * 关闭
      */
     void stop();

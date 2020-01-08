@@ -17,7 +17,6 @@
 
 package org.jfaster.derror.remote.config;
 
-import org.jfaster.derror.constant.DerrorConstant;
 import lombok.Data;
 
 /**
@@ -27,10 +26,4 @@ import lombok.Data;
 public class AppConfig {
     private String appName;
     private Long id;
-    /**异常报警频次 N/1分钟*/
-    private int frequency = DerrorConstant.DEFAULT_FREQUENCY;
-    /**默认1分钟 单位s*/
-    private int frequencyTime = DerrorConstant.MINUTE;
-    /**1表示开启 0表示未开启*/
-    private int status;
 }

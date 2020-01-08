@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.jfaster.mango.annotation.DB;
 import org.jfaster.mango.annotation.SQL;
+import org.jfaster.mango.crud.CrudDao;
 
 /**
  * @program: derror
@@ -36,13 +37,14 @@ import org.jfaster.mango.annotation.SQL;
  * @create: 2018-07-09 17:36
  **/
 @DB(name = DbConstant.DB, table = "exception_log")
-public interface ExceptionLogDAO {
+public interface ExceptionLogDAO extends CrudDao<ExceptionLogDO, Long> {
 
-    @SQL("insert into #table (app_id, app_name, host, traceId,short_name, class_name, mdc_value, ext, " +
-            " exception_msg, content, create_date, update_date,env) VALUES (:1.appId,:1.appName,:1.host," +
-            " :1.traceId,:1.shortName,:1.className,:1.mdcValue,:1.ext,:1.exceptionMsg,:1.content,:1.createDate,:1.updateDate,:1.env)")
-    void insertExceptionLog(ExceptionLogDO exceptionLogDO);
-
+    /**
+     * 查询异常里边
+     *
+     * @param exceptionLogDTO
+     * @return
+     */
     @SQL("select * from #table  where  1=1 "
             + " #if(:1.host!='' && :1.host!=null )  and  host like :1.host  #end  "
             + " #if(:1.appId!=null  ) and  app_id=:1.appId  #end "
@@ -51,9 +53,20 @@ public interface ExceptionLogDAO {
             + "  order by create_date desc ")
     List<ExceptionLogVO> queryExceptions(ExceptionLogDTO exceptionLogDTO);
 
+    /**
+     * 删除数据
+     *
+     * @param format
+     * @param format1
+     */
     @SQL("delete  from  #table where  create_date>=:1 AND create_date<:2")
     void delExceptionLogs(String format, String format1);
 
+    /**
+     * 异常统计
+     *
+     * @return
+     */
     @SQL("select short_name,count(*) as count from exception_log group by short_name")
     List<ExceptionLogStaticVO> queryExceptionStatis();
 }

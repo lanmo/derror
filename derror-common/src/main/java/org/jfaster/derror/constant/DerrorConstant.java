@@ -22,26 +22,10 @@ package org.jfaster.derror.constant;
  * @author yangnan
  */
 public final class DerrorConstant {
-
     public final static String UTF_8 = "UTF-8";
-
-    public final static int THREAD_CORE = Runtime.getRuntime().availableProcessors();
-    public final static int THREAD_MAX = 2 * THREAD_CORE;
-    public final static long KEEP_ALIVE_TIME = 1 * 60 * 1000;
-    /**开关开启*/
-    public final static int OPEN = 1;
-    /**开关开启*/
-    public final static int CLOSE = 0;
-    /**60s*/
-    public final static int MINUTE = 60;
-    /**每分钟15次*/
-    public final static int DEFAULT_FREQUENCY = 15;
-
     public final static String DEFAULT_HOST = "127.0.0.1";
     /**制表符*/
     public final static String TAB = "\t";
-    /**空串*/
-    public static final String EMPTY = " ";
     /**最大值*/
     public static final int MAX_SIZE = 100;
     public static final double MAX_PER = 0.8;
@@ -55,6 +39,8 @@ public final class DerrorConstant {
     /**获取应用配置*/
     public final static String GET_CONFIG = "/derror/app/getConfig";
     public final static String SAVE_EXCEPTION_LOG = "/derror/exception/alarm";
-
-
+    /**
+     * 当前系统名
+     */
+    public final static String SYSTEM = "DERROR";
 }

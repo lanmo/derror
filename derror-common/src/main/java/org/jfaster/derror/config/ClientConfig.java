@@ -17,6 +17,7 @@
 
 package org.jfaster.derror.config;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,36 +26,37 @@ import lombok.NoArgsConstructor;
  * @author yangnan
  */
 @Data
-@NoArgsConstructor
+@Builder
 public class ClientConfig {
-    /**远程管理url*/
+    /**
+     * 远程管理url
+     */
     private String url;
-    /**远程管理token*/
+    /**
+     * 远程管理token
+     */
     private String token;
-    /**远程管理appName*/
+    /**
+     * 远程管理appName
+     */
     private String appName;
-    /**系统名*/
-    private String system;
-    /**是否开启监控开关 默认开启*/
-    private Boolean errorSwitch;
-    /**环境标识*/
-    private String env;
-    /**traceKey*/
+    /**
+     * traceKey
+     */
     private String traceKey;
-    /**队列大小*/
-    private Integer queueSize;
-    /**长轮询时间*/
-    private int remoteInterval;
 
-    public ClientConfig(ClientConfig config) {
-        this.url = config.getUrl();
-        this.appName = config.getAppName();
-        this.token = config.getToken();
-        this.system = config.getSystem();
-        this.env = config.getEnv();
-        this.queueSize = config.getQueueSize();
-        this.traceKey = config.getTraceKey();
-        this.errorSwitch = config.getErrorSwitch();
-        this.remoteInterval = config.getRemoteInterval();
+    /**
+     * 扩展
+     */
+    private ExtendAdapter adapter;
+
+    public ClientConfig copy() {
+        return ClientConfig.builder()
+                .url(url)
+                .traceKey(traceKey)
+                .appName(appName)
+                .adapter(adapter)
+                .token(token)
+                .build();
     }
 }

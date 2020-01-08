@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!-- ===================================================================== -->
+<!-- -->
+<!-- Log4j Configuration -->
+<!-- -->
+<!-- ===================================================================== -->
+
+<!-- | For more configuration infromation and examples see the Jakarta Log4j
+	| owebsite: http://jakarta.apache.org/log4j -->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+  debug="false">
+
+  <!-- ============================== -->
+  <!-- Append messages to the console -->
+  <!-- ============================== -->
+
+  <!--<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender"> <param
+    name="Target" value="System.out"/> <layout class="org.apache.log4j.PatternLayout">
+    The default pattern: Date Priority [Category] Message\n [framework] %d -
+    %-4r [%t] %-5p %c %x - %m%n [start]%d{DATE}[DATE]%n%p[PRIORITY]%n%x[NDC]%n%t[THREAD]
+    n%c[CATEGORY]%n%m[MESSAGE]%n%n [%d{yyy MMM dd HH:mm:ss,SSS} IN %r] [%-5p]
+    [%C$%-12M(%l) in thread $t]: %m%n <param name="ConversionPattern" value="[%d{yyyy年MMMdd日HH:mm:ss,SSS}]
+    [%-5p] : %m%n" /> <param name="ConversionPattern" value="[%d{yyyy年MMMdd日HH:mm:ss,SSS}]
+    [%-5p] [%C.%-12M(%L)]: %m%n" /> param name="ConversionPattern" value="%d{ABSOLUTE}
+    %-5p [%c{1}] %m%n"/ </layout> </appender> -->
+  <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+    <param name="Target" value="System.out" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%d{MMdd HH:mm:ss SSS\} %-5p] %c{3\}:%L %X{tranceId} - %m%n" />
+    </layout>
+    <!--限制输出级别 -->
+    <filter class="org.jfaster.derror.log4j.plugin.filter.Log4jFilter">
+      <param name="LevelMax" value="ERROR" />
+      <param name="LevelMin" value="WARN" />
+      <param name="appName" value="canal"/>
+      <param name="url" value="http://localhost:8080"/>
+      <param name="token" value="GDMKNySCMy"/>
+      <param name="errorSwitch" value="true"/>
+      <param name="traceKey" value="traceId"/>
+      <param name="queueSize" value="24"/>
+      <param name="workerCoreSize" value="12"/>
+    </filter>
+  </appender>
+
+  <root>
+    <appender-ref ref="CONSOLE" />
+  </root>
+</log4j:configuration>

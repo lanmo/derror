@@ -34,8 +34,17 @@ public abstract class InternalLoggerFactory {
             factory = new Slf4JLoggerFactory(true);
             factory.newInstance(name).debug("Using SLF4J as the default logging framework");
         } catch (Throwable e) {
-            //TODO
-            System.out.println(e);
+            try {
+                factory = Log4J2LoggerFactory.INSTANCE;
+                factory.newInstance(name).debug("Using Log4J2 as the default logging framework");
+            } catch (Throwable var6) {
+                try {
+                    factory = Log4JLoggerFactory.INSTANCE;
+                    factory.newInstance(name).debug("Using Log4J as the default logging framework");
+                } catch (Throwable var5) {
+                    factory = NoLoggerFactory.INSTANCE;
+                }
+            }
         }
         defaultFactory = factory;
     }

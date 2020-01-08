@@ -33,6 +33,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
@@ -40,7 +41,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @SpringBootApplication
 @EnableScheduling
-public class DerrorManagerApplication extends WebMvcConfigurerAdapter {
+public class DerrorManagerApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {
         SpringApplication.run(DerrorManagerApplication.class, args);
@@ -48,7 +49,6 @@ public class DerrorManagerApplication extends WebMvcConfigurerAdapter {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        super.configureMessageConverters(converters);
         FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(SerializerFeature.DisableCircularReferenceDetect);
@@ -62,7 +62,6 @@ public class DerrorManagerApplication extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        super.addInterceptors(registry);
         registry.addInterceptor(new TraceLogInterceptor()).addPathPatterns("/**");
         registry.addInterceptor(loginInterceptor()).addPathPatterns("/**").excludePathPatterns("/user/login", "/",
                 "/error", "/derror/**");

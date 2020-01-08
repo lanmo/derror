@@ -19,6 +19,7 @@ package org.jfaster.derror.logback.plugin.event;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.IThrowableProxy;
+import ch.qos.logback.classic.spi.ThrowableProxy;
 import org.jfaster.derror.config.AbstractLoggingEvent;
 import org.jfaster.derror.logging.InternalLogLevel;
 import lombok.Getter;
@@ -50,6 +51,8 @@ public class LogbackEvent extends AbstractLoggingEvent {
 
     public LogbackEvent(Level level, IThrowableProxy throwableProxy) {
         this(level);
-        transferThrowable(throwableProxy);
+        if (throwableProxy instanceof ThrowableProxy) {
+            setThrowable(((ThrowableProxy) throwableProxy).getThrowable());
+        }
     }
 }

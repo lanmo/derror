@@ -36,7 +36,7 @@ public class PatternUtil {
     /**
      * 根据map中的格式化模板
      */
-    public static String getKey(String template, Map<String, Object> params) {
+    public static String getKey(String template, Map<String, String> params) {
         Matcher m = pattern.matcher(template);
         StringBuffer buffer = new StringBuffer();
         m.reset();
