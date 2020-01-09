@@ -23,7 +23,6 @@ package org.jfaster.derror.constant;
  */
 public final class DerrorConstant {
     public final static String UTF_8 = "UTF-8";
-    public final static String DEFAULT_HOST = "127.0.0.1";
     /**制表符*/
     public final static String TAB = "\t";
     /**最大值*/

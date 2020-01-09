@@ -17,17 +17,15 @@
 
 package org.jfaster.derror.util;
 
+import org.jfaster.derror.logging.InternalLogger;
+import org.jfaster.derror.logging.InternalLoggerFactory;
+
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.jfaster.derror.logging.InternalLogger;
-import org.jfaster.derror.logging.InternalLoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author yangnan
@@ -36,12 +34,14 @@ import org.slf4j.LoggerFactory;
 public class NetUtil {
 
     private static InternalLogger LOGGER = InternalLoggerFactory.getLogger(NetUtil.class);
+    private static final String LOCAL_IP = "127.0.0.1";
+    private static String NATIVE_IP = LOCAL_IP;
 
     /**
      * 获取本地ip地址，有可能会有多个地址, 若有多个网卡则会搜集多个网卡的ip地址
      */
-    public static Set<InetAddress> resolveLocalAddresses() {
-        Set<InetAddress> addrs = new HashSet<InetAddress>();
+    private static Set<InetAddress> resolveLocalAddresses() {
+        Set<InetAddress> addrs = new HashSet<>();
         Enumeration<NetworkInterface> ns = null;
         try {
             ns = NetworkInterface.getNetworkInterfaces();
@@ -63,6 +63,24 @@ public class NetUtil {
     }
 
     /**
+     * 获取本地ip
+     *
+     * @return
+     */
+    public static String getLocalIp() {
+        if (!NATIVE_IP.equals(LOCAL_IP)) {
+            return NATIVE_IP;
+        }
+
+        Set<String> ips = resolveLocalIps();
+        if (ips == null || ips.size() <= 0) {
+            return NATIVE_IP;
+        }
+        NATIVE_IP = ips.stream().filter(r -> !LOCAL_IP.equals(r)).findFirst().orElse(LOCAL_IP);
+        return NATIVE_IP;
+    }
+
+    /**
      * 获取ip异常返回值为null
      *
      * @return
@@ -77,12 +95,11 @@ public class NetUtil {
             }
             return ret;
         } catch (Throwable e) {
-            LOGGER.error("获取本机ip异常");
+            LOGGER.error("获取本机ip异常", ExceptionUtil.handleException(e));
         }
 
         return null;
     }
-    private static final String LOCAL_IP = "127.0.0.1";
 
     /**
      * 169.254.***.***地址段的含义：169.254地址段也属私有保留地址，

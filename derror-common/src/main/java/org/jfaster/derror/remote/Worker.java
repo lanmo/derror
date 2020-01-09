@@ -34,10 +34,7 @@ import org.jfaster.derror.util.StringUtil;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
-
-import static org.jfaster.derror.constant.DerrorConstant.DEFAULT_HOST;
 
 /**
  * @author yangnan
@@ -158,10 +155,6 @@ public class Worker {
      * @return
      */
     private String getHost() {
-        Set<String> ips = NetUtil.resolveLocalIps();
-        for (String ip : ips) {
-            return ip;
-        }
-        return DEFAULT_HOST;
+        return NetUtil.getLocalIp();
     }
 }
