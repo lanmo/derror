@@ -97,7 +97,6 @@ public class DefaultSupervisor implements Supervisor {
      */
     private void reloadConfig(ClientConfig config) {
         try {
-            LOGGER.info("开始了啊啊啊啊啊啊啊啊config:[{}]", config);
             RemoteConfig remoteConfig = downloadRemoteService.getRemoteConfig(config);
             //缓存RemoteConfig对象
             CacheManager.cache(remoteConfig);
