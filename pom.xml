@@ -71,7 +71,7 @@
     <skip.maven.deploy>true</skip.maven.deploy>
     <guava.version>22.0</guava.version>
     <mango-starter.version>2.0.1</mango-starter.version>
-    <mysql.version>5.1.25</mysql.version>
+    <mysql.version>8.0.16</mysql.version>
     <apache.commons.lang3.version>3.3.2</apache.commons.lang3.version>
     <apache.commons.collections.version>3.2.2</apache.commons.collections.version>
     <commons-io.version>2.6</commons-io.version>
