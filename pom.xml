@@ -61,7 +61,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
     <logback.version>1.2.3</logback.version>
-    <junit.version>4.12</junit.version>
+    <junit.version>4.13.1</junit.version>
     <slf4j.api.version>1.7.9</slf4j.api.version>
     <perf4j.version>0.9.16</perf4j.version>
     <fastjson.version>1.2.60</fastjson.version>
