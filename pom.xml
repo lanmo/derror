@@ -74,7 +74,7 @@
     <mysql.version>5.1.25</mysql.version>
     <apache.commons.lang3.version>3.3.2</apache.commons.lang3.version>
     <apache.commons.collections.version>3.2.2</apache.commons.collections.version>
-    <commons-io.version>2.6</commons-io.version>
+    <commons-io.version>2.7</commons-io.version>
     <commons-logging.version>1.2</commons-logging.version>
     <collections4.version>4.1</collections4.version>
     <maven-plugin-plugin.version>3.4</maven-plugin-plugin.version>
