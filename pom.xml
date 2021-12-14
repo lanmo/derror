@@ -83,7 +83,7 @@
     <project.build.locale>zh_CN</project.build.locale>
     <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
     <derror-common.version>1.0.7</derror-common.version>
-    <log4j2.version>2.7</log4j2.version>
+    <log4j2.version>2.16.0</log4j2.version>
     <log4j.version>1.2.14</log4j.version>
     <okhttp.version>3.9.0</okhttp.version>
   </properties>
