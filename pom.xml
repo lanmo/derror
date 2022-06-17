@@ -64,7 +64,7 @@
     <junit.version>4.12</junit.version>
     <slf4j.api.version>1.7.9</slf4j.api.version>
     <perf4j.version>0.9.16</perf4j.version>
-    <fastjson.version>1.2.60</fastjson.version>
+    <fastjson.version>1.2.83</fastjson.version>
     <junit.version>4.12</junit.version>
     <joda.time.version>2.9.9</joda.time.version>
     <lombok.version>1.16.16</lombok.version>
